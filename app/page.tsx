@@ -369,7 +369,7 @@ export default function Dashboard() {
             key={index}
             className={`border-2 transition-all duration-300 ${
               signal.confidence >= 80
-                ? "border-primary/20 shadow-sm hover:shadow-md hover:border-primary/40"
+                ? "border-emerald-200 bg-emerald-50/90 dark:bg-emerald-950/10 dark:border-emerald-600 shadow-sm hover:shadow-md hover:border-emerald-200/60 dark:hover:border-emerald-700/30 hover:bg-emerald-50/40 dark:hover:bg-emerald-900/20 relative overflow-hidden before:absolute before:inset-0 before:border-2 before:border-emerald-400/0 before:rounded-lg before:animate-pulse before:transition-all before:duration-1000 hover:before:border-emerald-400/50"
                 : "hover:shadow-sm"
             }`}
           >
