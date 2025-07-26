@@ -17,6 +17,11 @@ import {
   Mail,
   Download,
   RefreshCw,
+  ArrowUpRight,
+  Sparkles,
+  Clock,
+  Building2,
+  ChevronRight,
 } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -139,6 +144,9 @@ export default function Dashboard() {
     {
       category: "Reg 30 Disclosures",
       count: 5,
+      icon: FileText,
+      color: "text-blue-600",
+      bgColor: "bg-blue-50",
       items: [
         "Bharti Airtel mentions 'strategic partnerships'",
         "L&T filed disclosure on 'business restructuring'",
@@ -148,6 +156,9 @@ export default function Dashboard() {
     {
       category: "C-Suite Movements",
       count: 3,
+      icon: Users,
+      color: "text-purple-600",
+      bgColor: "bg-purple-50",
       items: [
         "Ex-McKinsey partner joins Mahindra as Strategy Head",
         "Former JP Morgan MD appointed at Bajaj Finance",
@@ -157,6 +168,9 @@ export default function Dashboard() {
     {
       category: "Media Speculation",
       count: 4,
+      icon: AlertTriangle,
+      color: "text-orange-600",
+      bgColor: "bg-orange-50",
       items: [
         "Economic Times: 'Tata Group considering sale of...'",
         "Mint: 'Foreign PE firm in talks with...'",
@@ -166,6 +180,9 @@ export default function Dashboard() {
     {
       category: "Foreign Entry Signals",
       count: 2,
+      icon: Building2,
+      color: "text-emerald-600",
+      bgColor: "bg-emerald-50",
       items: [
         "German automotive supplier eyes India entry",
         "US pharma giant mentions India expansion",
@@ -192,9 +209,10 @@ export default function Dashboard() {
   };
 
   const getConfidenceColor = (confidence: number) => {
-    if (confidence >= 80) return "text-emerald-600";
-    if (confidence >= 60) return "text-blue-600";
-    return "text-slate-500";
+    if (confidence >= 80)
+      return "text-emerald-600 bg-emerald-50 border-emerald-200";
+    if (confidence >= 60) return "text-blue-600 bg-blue-50 border-blue-200";
+    return "text-slate-600 bg-slate-50 border-slate-200";
   };
 
   const HighlightedText = ({ text }: { text: string }) => {
@@ -207,7 +225,7 @@ export default function Dashboard() {
             return (
               <span
                 key={index}
-                className="bg-amber-100 px-1.5 py-0.5 rounded-md border border-amber-400/50"
+                className="font-semibold text-slate-900 bg-gradient-to-r from-amber-100 to-amber-50 px-1.5 py-0.5 rounded border border-amber-300/50"
               >
                 {content}
               </span>
@@ -220,178 +238,260 @@ export default function Dashboard() {
   };
 
   const SmartSearchBar = () => (
-    <Card className="p-6 border border-border bg-card shadow-sm">
-      <div className="space-y-4">
-        <div className="space-y-2">
-          <h2 className="text-xl font-semibold">M&A Intelligence Search</h2>
-          <p className="text-sm text-muted-foreground">
-            Search across filings, transcripts, and media for M&A opportunities
-          </p>
-        </div>
-
-        <div className="flex gap-3">
-          <div className="relative flex-1">
-            <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
-            <Input
-              placeholder='e.g., "strategic review" + "external advisors" + "last 30 days"'
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              className="pl-10 h-12 text-sm"
-            />
+    <Card className="overflow-hidden border-0 shadow-lg bg-gradient-to-br from-slate-50 to-white">
+      <div className="absolute inset-0 bg-grid-slate-100 [mask-image:linear-gradient(0deg,white,rgba(255,255,255,0.6))] -z-10" />
+      <CardContent className="p-8">
+        <div className="space-y-6">
+          <div className="space-y-2">
+            <div className="flex items-center gap-2">
+              <div className="p-2 rounded-lg bg-primary/10">
+                <Sparkles className="h-5 w-5 text-primary" />
+              </div>
+              <h2 className="text-2xl font-bold bg-gradient-to-r from-slate-900 to-slate-700 bg-clip-text text-transparent">
+                M&A Intelligence Search
+              </h2>
+            </div>
+            <p className="text-sm text-muted-foreground">
+              Search across filings, transcripts, and media for M&A
+              opportunities
+            </p>
           </div>
-          <Button className="h-12 px-6 text-sm">Search</Button>
-        </div>
 
-        <div className="flex items-center gap-3">
-          <span className="text-xs text-muted-foreground">
-            Recent searches:
-          </span>
-          <div className="flex flex-wrap gap-2">
-            <Button
-              variant="secondary"
-              size="sm"
-              onClick={() =>
-                setSearchQuery(
-                  '"strategic review" + "external advisors" + "board resolution"'
-                )
-              }
-              className="text-xs h-7 px-3 cursor-pointer"
-            >
-              Strategic reviews with advisors
-            </Button>
-            <Button
-              variant="secondary"
-              size="sm"
-              onClick={() =>
-                setSearchQuery(
-                  '"new legal officer" + "M&A background" + "appointment"'
-                )
-              }
-              className="text-xs h-7 px-3 cursor-pointer"
-            >
-              M&A-focused legal hires
-            </Button>
-            <Button
-              variant="secondary"
-              size="sm"
-              onClick={() =>
-                setSearchQuery(
-                  '"trading window" + "restrictions" + "senior management"'
-                )
-              }
-              className="text-xs h-7 px-3 cursor-pointer"
-            >
-              Trading window restrictions
-            </Button>
-            <Button
-              variant="secondary"
-              size="sm"
-              onClick={() =>
-                setSearchQuery(
-                  '"inorganic growth" + "acquisition targets" + "earnings call"'
-                )
-              }
-              className="text-xs h-7 px-3 cursor-pointer"
-            >
-              Acquisition discussions
-            </Button>
-            <Button
-              variant="secondary"
-              size="sm"
-              onClick={() =>
-                setSearchQuery(
-                  '"investment bank" + "strategic review" + "engagement"'
-                )
-              }
-              className="text-xs h-7 px-3 cursor-pointer"
-            >
-              Investment bank engagements
+          <div className="flex gap-3">
+            <div className="relative flex-1">
+              <Search className="absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-muted-foreground" />
+              <Input
+                placeholder='e.g., "strategic review" + "external advisors" + "last 30 days"'
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className="pl-12 h-14 text-base border-2 focus:border-primary/50 transition-colors"
+              />
+            </div>
+            <Button className="h-14 px-8 text-base font-semibold shadow-lg hover:shadow-xl transition-all">
+              Search
+              <ArrowUpRight className="ml-2 h-4 w-4" />
             </Button>
           </div>
-        </div>
 
-        {activeFilters.length > 0 && (
-          <div className="flex flex-wrap gap-2">
-            {activeFilters.map((filter) => (
-              <Badge
-                key={filter}
+          <div className="space-y-3">
+            <span className="text-xs font-medium text-muted-foreground uppercase tracking-wider">
+              Popular searches
+            </span>
+            <div className="flex flex-wrap gap-2">
+              <Button
                 variant="secondary"
-                className="cursor-pointer"
-                onClick={() => removeFilter(filter)}
+                size="sm"
+                onClick={() =>
+                  setSearchQuery(
+                    '"strategic review" + "external advisors" + "board resolution"'
+                  )
+                }
+                className="text-xs h-8 px-4 bg-slate-100 hover:bg-slate-200 border border-slate-200"
               >
-                {filter.replace("-", " ")} ×
-              </Badge>
-            ))}
+                <Search className="h-3 w-3 mr-1.5" />
+                Strategic reviews with advisors
+              </Button>
+              <Button
+                variant="secondary"
+                size="sm"
+                onClick={() =>
+                  setSearchQuery(
+                    '"new legal officer" + "M&A background" + "appointment"'
+                  )
+                }
+                className="text-xs h-8 px-4 bg-slate-100 hover:bg-slate-200 border border-slate-200"
+              >
+                <Users className="h-3 w-3 mr-1.5" />
+                M&A-focused legal hires
+              </Button>
+              <Button
+                variant="secondary"
+                size="sm"
+                onClick={() =>
+                  setSearchQuery(
+                    '"trading window" + "restrictions" + "senior management"'
+                  )
+                }
+                className="text-xs h-8 px-4 bg-slate-100 hover:bg-slate-200 border border-slate-200"
+              >
+                <AlertTriangle className="h-3 w-3 mr-1.5" />
+                Trading window restrictions
+              </Button>
+              <Button
+                variant="secondary"
+                size="sm"
+                onClick={() =>
+                  setSearchQuery(
+                    '"inorganic growth" + "acquisition targets" + "earnings call"'
+                  )
+                }
+                className="text-xs h-8 px-4 bg-slate-100 hover:bg-slate-200 border border-slate-200"
+              >
+                <Target className="h-3 w-3 mr-1.5" />
+                Acquisition discussions
+              </Button>
+              <Button
+                variant="secondary"
+                size="sm"
+                onClick={() =>
+                  setSearchQuery(
+                    '"investment bank" + "strategic review" + "engagement"'
+                  )
+                }
+                className="text-xs h-8 px-4 bg-slate-100 hover:bg-slate-200 border border-slate-200"
+              >
+                <Building2 className="h-3 w-3 mr-1.5" />
+                Investment bank engagements
+              </Button>
+            </div>
           </div>
-        )}
-      </div>
+
+          {activeFilters.length > 0 && (
+            <div className="flex flex-wrap gap-2 pt-2">
+              {activeFilters.map((filter) => (
+                <Badge
+                  key={filter}
+                  variant="secondary"
+                  className="cursor-pointer bg-primary/10 hover:bg-primary/20 text-primary border-primary/20"
+                  onClick={() => removeFilter(filter)}
+                >
+                  {filter.replace("-", " ")} ×
+                </Badge>
+              ))}
+            </div>
+          )}
+        </div>
+      </CardContent>
     </Card>
   );
 
   const DealSignalMonitor = () => (
     <div className="space-y-8">
-      <div className="flex items-center gap-2 mb-6">
-        <TrendingUp className="h-5 w-5" />
-        <h2 className="text-lg font-semibold">M&A Signal Monitor</h2>
+      <div className="flex items-center justify-between">
+        <div className="flex items-center gap-3">
+          <div className="p-2 rounded-lg bg-gradient-to-br from-emerald-500 to-emerald-600 text-white shadow-lg">
+            <TrendingUp className="h-5 w-5" />
+          </div>
+          <div>
+            <h2 className="text-xl font-bold">M&A Signal Monitor</h2>
+            <p className="text-sm text-muted-foreground">
+              Real-time deal intelligence
+            </p>
+          </div>
+        </div>
+        <Select defaultValue="all">
+          <SelectTrigger className="w-[180px]">
+            <SelectValue placeholder="Filter signals" />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="all">All Signals</SelectItem>
+            <SelectItem value="high">High Potential</SelectItem>
+            <SelectItem value="moderate">Moderate Interest</SelectItem>
+          </SelectContent>
+        </Select>
       </div>
 
-      <div className="space-y-6">
+      <div className="space-y-4">
         {signals.map((signal, index) => (
-          <div
+          <Card
             key={index}
-            className={`border rounded-lg p-4 space-y-3 transition-all duration-300 ${
+            className={`overflow-hidden transition-all duration-300 ${
               signal.confidence >= 80
-                ? "bg-emerald-50/30 border-emerald-400 shadow-sm hover:bg-emerald-50/60 hover:shadow-md hover:border-emerald-500"
-                : "border-border hover:bg-accent/30"
+                ? "border-emerald-200 bg-gradient-to-r from-emerald-50/50 to-white shadow-md hover:shadow-xl hover:border-emerald-300"
+                : "border-slate-200 hover:shadow-lg hover:border-slate-300"
             }`}
           >
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-3">
-                <h3 className="text-xl font-semibold cursor-pointer hover:text-primary transition-colors">
-                  {signal.company}
-                </h3>
-                <Badge variant="outline" className="text-xs">
-                  {signal.assessment}
-                </Badge>
-                <Badge
-                  variant="default"
-                  className={`text-xs font-medium ${getConfidenceColor(
-                    signal.confidence
-                  )} bg-opacity-10`}
-                >
-                  {signal.confidence}% confidence
-                </Badge>
+            <div
+              className={`h-1 ${
+                signal.confidence >= 80
+                  ? "bg-gradient-to-r from-emerald-500 to-emerald-400"
+                  : "bg-gradient-to-r from-slate-300 to-slate-200"
+              }`}
+            />
+            <CardContent className="p-6 space-y-4">
+              <div className="flex items-start justify-between">
+                <div className="space-y-2">
+                  <div className="flex items-center gap-3">
+                    <h3 className="text-2xl font-bold text-slate-900 hover:text-primary cursor-pointer transition-colors">
+                      {signal.company}
+                    </h3>
+                    <Badge
+                      variant="outline"
+                      className={`${
+                        signal.confidence >= 80
+                          ? "border-emerald-500 text-emerald-700 bg-emerald-50"
+                          : "border-slate-300"
+                      }`}
+                    >
+                      {getAssessmentIcon(signal.assessment)}
+                      <span className="ml-1.5">{signal.assessment}</span>
+                    </Badge>
+                  </div>
+                  <div className="flex items-center gap-4 text-sm text-muted-foreground">
+                    <div className="flex items-center gap-1">
+                      <Clock className="h-3.5 w-3.5" />
+                      <span>{signal.date}</span>
+                    </div>
+                    <span>•</span>
+                    <span>{signal.sources.length} sources verified</span>
+                  </div>
+                </div>
+                <div className="flex items-center gap-3">
+                  <div className="text-right">
+                    <p className="text-xs text-muted-foreground uppercase tracking-wider">
+                      Confidence
+                    </p>
+                    <p
+                      className={`text-3xl font-bold ${
+                        signal.confidence >= 80
+                          ? "text-emerald-600"
+                          : "text-slate-600"
+                      }`}
+                    >
+                      {signal.confidence}%
+                    </p>
+                  </div>
+                  <Button
+                    variant="ghost"
+                    size="icon"
+                    className="hover:bg-slate-100"
+                  >
+                    <ExternalLink className="h-4 w-4" />
+                  </Button>
+                </div>
               </div>
-              <div className="flex items-center gap-2 text-xs text-muted-foreground">
-                <span>{signal.date}</span>
-                <span>•</span>
-                <span>{signal.sources.length} sources</span>
-                <span>•</span>
-                <Button variant="ghost" size="sm" className="h-6 px-2 text-xs">
-                  <ExternalLink className="h-3 w-3" />
+
+              <div className="space-y-3">
+                <p className="text-lg font-semibold text-slate-800 leading-tight">
+                  {signal.summary}
+                </p>
+                <div className="bg-slate-50 rounded-lg p-4 border border-slate-100">
+                  <p className="text-sm text-slate-700 leading-relaxed">
+                    <HighlightedText text={signal.context} />
+                  </p>
+                </div>
+              </div>
+
+              <div className="flex items-center justify-between pt-2">
+                <div className="flex flex-wrap gap-2">
+                  {signal.sources.map((source, sourceIndex) => (
+                    <Badge
+                      key={sourceIndex}
+                      variant="secondary"
+                      className="text-xs bg-white border-slate-200 hover:bg-slate-50 cursor-pointer"
+                    >
+                      <FileText className="h-3 w-3 mr-1" />
+                      {source.type}
+                    </Badge>
+                  ))}
+                </div>
+                <Button variant="link" size="sm" className="text-primary">
+                  View full analysis
+                  <ChevronRight className="h-3 w-3 ml-1" />
                 </Button>
               </div>
-            </div>
-
-            <div className="space-y-3">
-              <p className="font-medium text-slate-900 underline decoration-1 underline-offset-2 cursor-pointer hover:text-primary transition-colors">
-                {signal.summary}
-              </p>
-              <div className="pt-2">
-                <p className="text-sm text-muted-foreground leading-relaxed">
-                  <HighlightedText text={signal.context} />
-                </p>
-              </div>
-            </div>
-
-            <div className="flex flex-wrap gap-1">
-              {signal.sources.map((source, sourceIndex) => (
-                <Badge key={sourceIndex} variant="outline" className="text-xs">
-                  {source.type}
-                </Badge>
-              ))}
-            </div>
-          </div>
+            </CardContent>
+          </Card>
         ))}
       </div>
     </div>
@@ -400,57 +500,78 @@ export default function Dashboard() {
   const DailyBriefingWidget = () => (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
-        <div className="flex items-center gap-2">
-          <Mail className="h-5 w-5" />
-          <h2 className="text-lg font-semibold">Daily M&A Briefing</h2>
+        <div className="flex items-center gap-3">
+          <div className="p-2 rounded-lg bg-gradient-to-br from-blue-500 to-blue-600 text-white shadow-lg">
+            <Mail className="h-5 w-5" />
+          </div>
+          <div>
+            <h2 className="text-xl font-bold">Daily M&A Briefing</h2>
+            <p className="text-sm text-muted-foreground">
+              Today's intelligence summary
+            </p>
+          </div>
         </div>
-        <Button variant="ghost" size="sm">
+        <Button variant="ghost" size="icon" className="hover:bg-slate-100">
           <RefreshCw className="h-4 w-4" />
         </Button>
       </div>
 
-      <Card>
+      <Card className="overflow-hidden border-0 shadow-lg">
+        <div className="h-2 bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500" />
         <CardContent className="p-6 space-y-6">
-          <div className="flex items-center justify-between text-sm">
-            <span className="text-muted-foreground">
-              Today&apos;s Intelligence
-            </span>
-            <Badge variant="secondary">14 new signals</Badge>
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-2">
+              <Sparkles className="h-4 w-4 text-blue-600" />
+              <span className="text-sm font-medium">Today's Intelligence</span>
+            </div>
+            <Badge className="bg-gradient-to-r from-blue-500 to-blue-600 text-white border-0">
+              14 new signals
+            </Badge>
           </div>
 
-          {briefingItems.map((section, index) => (
-            <div key={index} className="space-y-2">
-              <div className="flex items-center justify-between">
-                <h4 className="font-medium text-sm">{section.category}</h4>
-                <Badge variant="outline" className="text-xs">
-                  {section.count}
-                </Badge>
+          <div className="space-y-4">
+            {briefingItems.map((section, index) => (
+              <div key={index} className="space-y-3">
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-2">
+                    <div className={`p-1.5 rounded-lg ${section.bgColor}`}>
+                      <section.icon className={`h-4 w-4 ${section.color}`} />
+                    </div>
+                    <h4 className="font-semibold text-sm">
+                      {section.category}
+                    </h4>
+                  </div>
+                  <Badge variant="secondary" className="text-xs">
+                    {section.count}
+                  </Badge>
+                </div>
+                <div className="space-y-2 pl-8">
+                  {section.items.map((item, itemIndex) => (
+                    <div
+                      key={itemIndex}
+                      className="flex items-start gap-2 group cursor-pointer"
+                    >
+                      <div className="h-1.5 w-1.5 rounded-full bg-slate-300 mt-1.5 group-hover:bg-primary transition-colors" />
+                      <p className="text-sm text-slate-600 group-hover:text-slate-900 transition-colors">
+                        {item}
+                      </p>
+                    </div>
+                  ))}
+                </div>
               </div>
-              <div className="space-y-1">
-                {section.items.map((item, itemIndex) => (
-                  <p
-                    key={itemIndex}
-                    className="text-xs text-muted-foreground pl-2 border-l-2 border-muted/50"
-                  >
-                    {item}
-                  </p>
-                ))}
-              </div>
-            </div>
-          ))}
+            ))}
+          </div>
 
-          <div className="flex gap-2 pt-2">
-            <Button size="sm" className="flex-1">
-              <Mail className="h-3 w-3 mr-1" />
+          <Separator />
+
+          <div className="flex gap-3">
+            <Button className="flex-1 shadow-md hover:shadow-lg transition-all">
+              <Mail className="h-4 w-4 mr-2" />
               Email Report
             </Button>
-            <Button
-              variant="outline"
-              size="sm"
-              className="flex-1 bg-transparent"
-            >
-              <Download className="h-3 w-3 mr-1" />
-              Export
+            <Button variant="outline" className="flex-1">
+              <Download className="h-4 w-4 mr-2" />
+              Export PDF
             </Button>
           </div>
         </CardContent>
@@ -460,14 +581,14 @@ export default function Dashboard() {
 
   return (
     <SidebarProvider>
-      <Sidebar className="border-r">
-        <SidebarHeader className="border-b px-6 py-4">
-          <div className="flex items-center gap-2">
-            <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary text-primary-foreground">
-              <TrendingUp className="h-4 w-4" />
+      <Sidebar className="border-r bg-slate-50">
+        <SidebarHeader className="border-b bg-white px-6 py-4">
+          <div className="flex items-center gap-3">
+            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-primary to-primary/80 text-primary-foreground shadow-lg">
+              <TrendingUp className="h-5 w-5" />
             </div>
             <div>
-              <h1 className="text-lg font-semibold">M&A Intelligence</h1>
+              <h1 className="text-xl font-bold">M&A Intelligence</h1>
               <p className="text-xs text-muted-foreground">
                 Deal Flow Dashboard
               </p>
@@ -481,10 +602,18 @@ export default function Dashboard() {
               <SidebarMenu>
                 {navigation.map((item) => (
                   <SidebarMenuItem key={item.name}>
-                    <SidebarMenuButton asChild isActive={item.current}>
+                    <SidebarMenuButton
+                      asChild
+                      isActive={item.current}
+                      className={
+                        item.current
+                          ? "bg-primary/10 text-primary hover:bg-primary/20"
+                          : ""
+                      }
+                    >
                       <a href="#" className="flex items-center gap-3">
                         <item.icon className="h-4 w-4" />
-                        <span>{item.name}</span>
+                        <span className="font-medium">{item.name}</span>
                       </a>
                     </SidebarMenuButton>
                   </SidebarMenuItem>
@@ -497,97 +626,98 @@ export default function Dashboard() {
       </Sidebar>
 
       <SidebarInset>
-        <header className="flex h-16 shrink-0 items-center gap-2 border-b px-4">
+        <header className="flex h-16 shrink-0 items-center gap-2 border-b bg-white px-6">
           <SidebarTrigger className="-ml-1" />
           <Separator orientation="vertical" className="mr-2 h-4" />
           <div className="flex items-center gap-2 flex-1">
             <div>
-              <h2 className="text-lg font-semibold">Good evening, Anand!</h2>
-              <p className="text-xs text-muted-foreground">
-                Welcome back to your M&A dashboard
+              <h2 className="text-xl font-bold bg-gradient-to-r from-slate-900 to-slate-700 bg-clip-text text-transparent">
+                Good evening, Anand!
+              </h2>
+              <p className="text-sm text-muted-foreground">
+                3 new high-confidence signals detected today
               </p>
             </div>
           </div>
-          <div className="relative group ml-16">
-            <Button variant="ghost" size="sm" className="relative">
-              <Bell className="h-4 w-4" />
-              <span className="absolute -top-1 -right-1 h-2 w-2 bg-red-500 rounded-full"></span>
-              <span className="absolute -top-2 -right-2 h-5 w-5 bg-red-500 text-white text-xs rounded-full flex items-center justify-center font-medium">
+          <div className="relative group">
+            <Button variant="ghost" size="icon" className="relative">
+              <Bell className="h-5 w-5" />
+              <span className="absolute -top-1 -right-1 h-5 w-5 bg-red-500 text-white text-xs rounded-full flex items-center justify-center font-bold animate-pulse">
                 3
               </span>
             </Button>
-            <div className="absolute right-0 top-full mt-2 w-80 bg-popover border border-border rounded-lg shadow-md z-50 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
-              <div className="p-2">
-                <div className="flex items-center justify-between px-2 py-1.5">
-                  <span className="text-sm font-medium">Notifications</span>
+            <div className="absolute right-0 top-full mt-2 w-96 bg-white border rounded-xl shadow-2xl z-50 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
+              <div className="p-4">
+                <div className="flex items-center justify-between mb-3">
+                  <span className="text-base font-semibold">Notifications</span>
                   <Button
                     variant="ghost"
                     size="sm"
-                    className="h-6 px-2 text-xs"
+                    className="h-7 px-3 text-xs"
                   >
                     Mark all read
                   </Button>
                 </div>
-                <Separator />
-                <div className="py-1">
-                  <div className="flex items-start gap-3 px-2 py-1.5 rounded-sm hover:bg-accent cursor-pointer">
-                    <div className="h-2 w-2 bg-blue-500 rounded-full mt-2"></div>
+                <Separator className="mb-3" />
+                <div className="space-y-2">
+                  <div className="flex items-start gap-3 p-3 rounded-lg hover:bg-slate-50 cursor-pointer transition-colors">
+                    <div className="h-2 w-2 bg-emerald-500 rounded-full mt-2 animate-pulse"></div>
                     <div className="flex-1">
-                      <p className="text-sm font-medium">New signal detected</p>
-                      <p className="text-xs text-muted-foreground">
-                        Tata Motors shows high M&A potential
+                      <p className="text-sm font-semibold">
+                        New high-confidence signal
                       </p>
-                      <p className="text-xs text-muted-foreground mt-0.5">
+                      <p className="text-xs text-muted-foreground">
+                        Tata Motors shows 92% M&A potential
+                      </p>
+                      <p className="text-xs text-muted-foreground mt-1">
                         2 hours ago
                       </p>
                     </div>
                   </div>
-                  <div className="flex items-start gap-3 px-2 py-1.5 rounded-sm hover:bg-accent cursor-pointer">
-                    <div className="h-2 w-2 bg-green-500 rounded-full mt-2"></div>
+                  <div className="flex items-start gap-3 p-3 rounded-lg hover:bg-slate-50 cursor-pointer transition-colors">
+                    <div className="h-2 w-2 bg-blue-500 rounded-full mt-2"></div>
                     <div className="flex-1">
-                      <p className="text-sm font-medium">Watchlist alert</p>
+                      <p className="text-sm font-semibold">Watchlist alert</p>
                       <p className="text-xs text-muted-foreground">
                         Reliance Industries filed new disclosure
                       </p>
-                      <p className="text-xs text-muted-foreground mt-0.5">
+                      <p className="text-xs text-muted-foreground mt-1">
                         4 hours ago
                       </p>
                     </div>
                   </div>
-                  <div className="flex items-start gap-3 px-2 py-1.5 rounded-sm hover:bg-accent cursor-pointer">
+                  <div className="flex items-start gap-3 p-3 rounded-lg hover:bg-slate-50 cursor-pointer transition-colors">
                     <div className="h-2 w-2 bg-orange-500 rounded-full mt-2"></div>
                     <div className="flex-1">
-                      <p className="text-sm font-medium">
+                      <p className="text-sm font-semibold">
                         Daily briefing ready
                       </p>
                       <p className="text-xs text-muted-foreground">
                         Your morning M&A report is available
                       </p>
-                      <p className="text-xs text-muted-foreground mt-0.5">
+                      <p className="text-xs text-muted-foreground mt-1">
                         6 hours ago
                       </p>
                     </div>
                   </div>
                 </div>
-                <Separator />
-                <div className="px-2 py-1.5">
-                  <Button
-                    variant="ghost"
-                    size="sm"
-                    className="w-full text-xs justify-start"
-                  >
-                    View all notifications
-                  </Button>
-                </div>
+                <Separator className="my-3" />
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  className="w-full text-xs justify-center"
+                >
+                  View all notifications
+                </Button>
               </div>
             </div>
           </div>
         </header>
 
-        <div className="flex-1 space-y-12 p-8">
+        <div className="flex-1 space-y-8 p-8 bg-slate-50/50">
           <SmartSearchBar />
 
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
             <div className="lg:col-span-2">
               <DealSignalMonitor />
             </div>
