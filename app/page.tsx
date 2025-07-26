@@ -17,6 +17,9 @@ import {
   Mail,
   Download,
   RefreshCw,
+  ArrowUpRight,
+  Clock,
+  Building2,
 } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -207,7 +210,7 @@ export default function Dashboard() {
             return (
               <span
                 key={index}
-                className="bg-amber-100 px-1.5 py-0.5 rounded-md border border-amber-400/50"
+                className="font-semibold text-foreground bg-yellow-100 dark:bg-yellow-900/30 px-1 py-0.5 rounded"
               >
                 {content}
               </span>
@@ -220,178 +223,235 @@ export default function Dashboard() {
   };
 
   const SmartSearchBar = () => (
-    <Card className="p-6 border border-border bg-card shadow-sm">
-      <div className="space-y-4">
-        <div className="space-y-2">
-          <h2 className="text-xl font-semibold">M&A Intelligence Search</h2>
-          <p className="text-sm text-muted-foreground">
-            Search across filings, transcripts, and media for M&A opportunities
-          </p>
-        </div>
-
-        <div className="flex gap-3">
-          <div className="relative flex-1">
-            <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
-            <Input
-              placeholder='e.g., "strategic review" + "external advisors" + "last 30 days"'
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              className="pl-10 h-12 text-sm"
-            />
+    <Card className="border-2 shadow-sm hover:shadow-md transition-shadow">
+      <CardContent className="p-6">
+        <div className="space-y-4">
+          <div className="space-y-2">
+            <h2 className="text-2xl font-bold tracking-tight">
+              M&A Intelligence Search
+            </h2>
+            <p className="text-sm text-muted-foreground">
+              Search across filings, transcripts, and media for M&A
+              opportunities
+            </p>
           </div>
-          <Button className="h-12 px-6 text-sm">Search</Button>
-        </div>
 
-        <div className="flex items-center gap-3">
-          <span className="text-xs text-muted-foreground">
-            Recent searches:
-          </span>
-          <div className="flex flex-wrap gap-2">
-            <Button
-              variant="secondary"
-              size="sm"
-              onClick={() =>
-                setSearchQuery(
-                  '"strategic review" + "external advisors" + "board resolution"'
-                )
-              }
-              className="text-xs h-7 px-3 cursor-pointer"
-            >
-              Strategic reviews with advisors
-            </Button>
-            <Button
-              variant="secondary"
-              size="sm"
-              onClick={() =>
-                setSearchQuery(
-                  '"new legal officer" + "M&A background" + "appointment"'
-                )
-              }
-              className="text-xs h-7 px-3 cursor-pointer"
-            >
-              M&A-focused legal hires
-            </Button>
-            <Button
-              variant="secondary"
-              size="sm"
-              onClick={() =>
-                setSearchQuery(
-                  '"trading window" + "restrictions" + "senior management"'
-                )
-              }
-              className="text-xs h-7 px-3 cursor-pointer"
-            >
-              Trading window restrictions
-            </Button>
-            <Button
-              variant="secondary"
-              size="sm"
-              onClick={() =>
-                setSearchQuery(
-                  '"inorganic growth" + "acquisition targets" + "earnings call"'
-                )
-              }
-              className="text-xs h-7 px-3 cursor-pointer"
-            >
-              Acquisition discussions
-            </Button>
-            <Button
-              variant="secondary"
-              size="sm"
-              onClick={() =>
-                setSearchQuery(
-                  '"investment bank" + "strategic review" + "engagement"'
-                )
-              }
-              className="text-xs h-7 px-3 cursor-pointer"
-            >
-              Investment bank engagements
+          <div className="flex gap-3">
+            <div className="relative flex-1">
+              <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
+              <Input
+                placeholder='e.g., "strategic review" + "external advisors" + "last 30 days"'
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className="pl-10 h-12 text-sm border-2 focus:border-primary"
+              />
+            </div>
+            <Button className="h-12 px-6 text-sm font-medium shadow-sm">
+              Search
             </Button>
           </div>
-        </div>
 
-        {activeFilters.length > 0 && (
-          <div className="flex flex-wrap gap-2">
-            {activeFilters.map((filter) => (
-              <Badge
-                key={filter}
-                variant="secondary"
-                className="cursor-pointer"
-                onClick={() => removeFilter(filter)}
+          <div className="space-y-3">
+            <span className="text-xs font-medium text-muted-foreground uppercase tracking-wider">
+              Recent searches
+            </span>
+            <div className="flex flex-wrap gap-2">
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() =>
+                  setSearchQuery(
+                    '"strategic review" + "external advisors" + "board resolution"'
+                  )
+                }
+                className="text-xs h-8 px-3 hover:bg-muted border-muted-foreground/20"
               >
-                {filter.replace("-", " ")} ×
-              </Badge>
-            ))}
+                Strategic reviews with advisors
+              </Button>
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() =>
+                  setSearchQuery(
+                    '"new legal officer" + "M&A background" + "appointment"'
+                  )
+                }
+                className="text-xs h-8 px-3 hover:bg-muted border-muted-foreground/20"
+              >
+                M&A-focused legal hires
+              </Button>
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() =>
+                  setSearchQuery(
+                    '"trading window" + "restrictions" + "senior management"'
+                  )
+                }
+                className="text-xs h-8 px-3 hover:bg-muted border-muted-foreground/20"
+              >
+                Trading window restrictions
+              </Button>
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() =>
+                  setSearchQuery(
+                    '"inorganic growth" + "acquisition targets" + "earnings call"'
+                  )
+                }
+                className="text-xs h-8 px-3 hover:bg-muted border-muted-foreground/20"
+              >
+                Acquisition discussions
+              </Button>
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() =>
+                  setSearchQuery(
+                    '"investment bank" + "strategic review" + "engagement"'
+                  )
+                }
+                className="text-xs h-8 px-3 hover:bg-muted border-muted-foreground/20"
+              >
+                Investment bank engagements
+              </Button>
+            </div>
           </div>
-        )}
-      </div>
+
+          {activeFilters.length > 0 && (
+            <div className="flex flex-wrap gap-2 pt-2">
+              {activeFilters.map((filter) => (
+                <Badge
+                  key={filter}
+                  variant="secondary"
+                  className="cursor-pointer hover:bg-destructive hover:text-destructive-foreground"
+                  onClick={() => removeFilter(filter)}
+                >
+                  {filter.replace("-", " ")} ×
+                </Badge>
+              ))}
+            </div>
+          )}
+        </div>
+      </CardContent>
     </Card>
   );
 
   const DealSignalMonitor = () => (
-    <div className="space-y-8">
-      <div className="flex items-center gap-2 mb-6">
-        <TrendingUp className="h-5 w-5" />
-        <h2 className="text-lg font-semibold">M&A Signal Monitor</h2>
+    <div className="space-y-6">
+      <div className="flex items-center justify-between">
+        <div className="space-y-1">
+          <h2 className="text-2xl font-bold tracking-tight flex items-center gap-2">
+            <TrendingUp className="h-6 w-6" />
+            M&A Signal Monitor
+          </h2>
+          <p className="text-sm text-muted-foreground">
+            Real-time detection of potential M&A activity
+          </p>
+        </div>
+        <Select defaultValue="all">
+          <SelectTrigger className="w-[180px]">
+            <SelectValue placeholder="Filter signals" />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="all">All Signals</SelectItem>
+            <SelectItem value="high">High Potential</SelectItem>
+            <SelectItem value="moderate">Moderate Interest</SelectItem>
+            <SelectItem value="today">Today Only</SelectItem>
+          </SelectContent>
+        </Select>
       </div>
 
-      <div className="space-y-6">
+      <div className="space-y-4">
         {signals.map((signal, index) => (
-          <div
+          <Card
             key={index}
-            className={`border rounded-lg p-4 space-y-3 transition-all duration-300 ${
+            className={`border-2 transition-all duration-300 ${
               signal.confidence >= 80
-                ? "bg-emerald-50/30 border-emerald-400 shadow-sm hover:bg-emerald-50/60 hover:shadow-md hover:border-emerald-500"
-                : "border-border hover:bg-accent/30"
+                ? "border-primary/20 shadow-sm hover:shadow-md hover:border-primary/40"
+                : "hover:shadow-sm"
             }`}
           >
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-3">
-                <h3 className="text-xl font-semibold cursor-pointer hover:text-primary transition-colors">
-                  {signal.company}
-                </h3>
-                <Badge variant="outline" className="text-xs">
-                  {signal.assessment}
-                </Badge>
-                <Badge
-                  variant="default"
-                  className={`text-xs font-medium ${getConfidenceColor(
-                    signal.confidence
-                  )} bg-opacity-10`}
-                >
-                  {signal.confidence}% confidence
-                </Badge>
-              </div>
-              <div className="flex items-center gap-2 text-xs text-muted-foreground">
-                <span>{signal.date}</span>
-                <span>•</span>
-                <span>{signal.sources.length} sources</span>
-                <span>•</span>
-                <Button variant="ghost" size="sm" className="h-6 px-2 text-xs">
-                  <ExternalLink className="h-3 w-3" />
-                </Button>
-              </div>
-            </div>
+            <CardContent className="p-6">
+              <div className="space-y-4">
+                {/* Header */}
+                <div className="flex items-start justify-between">
+                  <div className="space-y-2">
+                    <div className="flex items-center gap-3">
+                      <h3 className="text-xl font-bold flex items-center gap-2 hover:text-primary transition-colors cursor-pointer">
+                        <Building2 className="h-5 w-5 text-muted-foreground" />
+                        {signal.company}
+                        <ArrowUpRight className="h-4 w-4 text-muted-foreground" />
+                      </h3>
+                      <Badge
+                        variant={
+                          signal.confidence >= 80 ? "default" : "secondary"
+                        }
+                        className="font-medium"
+                      >
+                        {signal.assessment}
+                      </Badge>
+                    </div>
+                    <div className="flex items-center gap-4 text-sm text-muted-foreground">
+                      <span className="flex items-center gap-1">
+                        <Clock className="h-3 w-3" />
+                        {signal.date}
+                      </span>
+                      <span>•</span>
+                      <span>{signal.sources.length} sources verified</span>
+                    </div>
+                  </div>
+                  <div
+                    className={`text-2xl font-bold ${getConfidenceColor(
+                      signal.confidence
+                    )}`}
+                  >
+                    {signal.confidence}%
+                    <p className="text-xs font-normal text-muted-foreground">
+                      confidence
+                    </p>
+                  </div>
+                </div>
 
-            <div className="space-y-3">
-              <p className="font-medium text-slate-900 underline decoration-1 underline-offset-2 cursor-pointer hover:text-primary transition-colors">
-                {signal.summary}
-              </p>
-              <div className="pt-2">
-                <p className="text-sm text-muted-foreground leading-relaxed">
-                  <HighlightedText text={signal.context} />
-                </p>
-              </div>
-            </div>
+                {/* Summary */}
+                <div className="space-y-2">
+                  <h4 className="text-sm font-semibold text-foreground underline underline-offset-4 decoration-muted-foreground/30 hover:decoration-muted-foreground/60 transition-colors cursor-pointer">
+                    {signal.summary}
+                  </h4>
+                </div>
 
-            <div className="flex flex-wrap gap-1">
-              {signal.sources.map((source, sourceIndex) => (
-                <Badge key={sourceIndex} variant="outline" className="text-xs">
-                  {source.type}
-                </Badge>
-              ))}
-            </div>
-          </div>
+                {/* Context */}
+                <div className="space-y-2">
+                  <h4 className="text-sm font-semibold uppercase tracking-wider text-muted-foreground">
+                    Key Findings
+                  </h4>
+                  <p className="text-sm leading-relaxed text-muted-foreground">
+                    <HighlightedText text={signal.context} />
+                  </p>
+                </div>
+
+                {/* Sources */}
+                <div className="flex items-center justify-between pt-2">
+                  <div className="flex flex-wrap gap-2">
+                    {signal.sources.map((source, sourceIndex) => (
+                      <Badge
+                        key={sourceIndex}
+                        variant="outline"
+                        className="text-xs font-normal"
+                      >
+                        {source.type} • {source.date}
+                      </Badge>
+                    ))}
+                  </div>
+                  <Button variant="ghost" size="sm" className="text-xs">
+                    View Details
+                    <ExternalLink className="h-3 w-3 ml-1" />
+                  </Button>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
         ))}
       </div>
     </div>
@@ -399,59 +459,99 @@ export default function Dashboard() {
 
   const DailyBriefingWidget = () => (
     <div className="space-y-6">
-      <div className="flex items-center justify-between">
-        <div className="flex items-center gap-2">
-          <Mail className="h-5 w-5" />
-          <h2 className="text-lg font-semibold">Daily M&A Briefing</h2>
-        </div>
-        <Button variant="ghost" size="sm">
-          <RefreshCw className="h-4 w-4" />
-        </Button>
+      <div className="space-y-1">
+        <h2 className="text-2xl font-bold tracking-tight flex items-center gap-2">
+          <Mail className="h-6 w-6" />
+          Daily M&A Briefing
+        </h2>
+        <p className="text-sm text-muted-foreground">
+          Curated intelligence delivered daily
+        </p>
       </div>
 
-      <Card>
-        <CardContent className="p-6 space-y-6">
-          <div className="flex items-center justify-between text-sm">
-            <span className="text-muted-foreground">
-              Today&apos;s Intelligence
-            </span>
-            <Badge variant="secondary">14 new signals</Badge>
+      <Card className="border-2">
+        <CardHeader className="pb-4">
+          <div className="flex items-center justify-between">
+            <div>
+              <CardTitle className="text-base">
+                Today&apos;s Intelligence
+              </CardTitle>
+              <p className="text-sm text-muted-foreground mt-1">
+                {new Date().toLocaleDateString("en-US", {
+                  weekday: "long",
+                  year: "numeric",
+                  month: "long",
+                  day: "numeric",
+                })}
+              </p>
+            </div>
+            <Badge className="bg-primary/10 text-primary border-primary/20">
+              14 new signals
+            </Badge>
           </div>
-
+        </CardHeader>
+        <CardContent className="space-y-6">
           {briefingItems.map((section, index) => (
-            <div key={index} className="space-y-2">
-              <div className="flex items-center justify-between">
-                <h4 className="font-medium text-sm">{section.category}</h4>
+            <div key={index} className="space-y-3">
+              <div className="flex items-center justify-between pb-2 border-b">
+                <h4 className="font-semibold text-sm">{section.category}</h4>
                 <Badge variant="outline" className="text-xs">
-                  {section.count}
+                  {section.count} items
                 </Badge>
               </div>
-              <div className="space-y-1">
+              <div className="space-y-2">
                 {section.items.map((item, itemIndex) => (
-                  <p
+                  <div
                     key={itemIndex}
-                    className="text-xs text-muted-foreground pl-2 border-l-2 border-muted/50"
+                    className="text-sm text-muted-foreground pl-4 relative before:content-[''] before:absolute before:left-0 before:top-2 before:w-1.5 before:h-1.5 before:bg-muted-foreground/40 before:rounded-full hover:text-foreground transition-colors cursor-pointer"
                   >
                     {item}
-                  </p>
+                  </div>
                 ))}
               </div>
             </div>
           ))}
 
-          <div className="flex gap-2 pt-2">
-            <Button size="sm" className="flex-1">
+          <Separator />
+
+          <div className="flex gap-2">
+            <Button size="sm" className="flex-1 shadow-sm">
               <Mail className="h-3 w-3 mr-1" />
               Email Report
             </Button>
-            <Button
-              variant="outline"
-              size="sm"
-              className="flex-1 bg-transparent"
-            >
+            <Button variant="outline" size="sm" className="flex-1">
               <Download className="h-3 w-3 mr-1" />
-              Export
+              Export PDF
             </Button>
+          </div>
+        </CardContent>
+      </Card>
+
+      {/* Quick Stats */}
+      <Card className="border-2">
+        <CardHeader className="pb-3">
+          <CardTitle className="text-base">Weekly Trends</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <div className="space-y-3">
+            <div className="flex items-center justify-between">
+              <span className="text-sm text-muted-foreground">
+                High Potential Signals
+              </span>
+              <span className="text-sm font-semibold">+23%</span>
+            </div>
+            <div className="flex items-center justify-between">
+              <span className="text-sm text-muted-foreground">
+                New Companies Tracked
+              </span>
+              <span className="text-sm font-semibold">12</span>
+            </div>
+            <div className="flex items-center justify-between">
+              <span className="text-sm text-muted-foreground">
+                Verified Sources
+              </span>
+              <span className="text-sm font-semibold">847</span>
+            </div>
           </div>
         </CardContent>
       </Card>
@@ -462,12 +562,12 @@ export default function Dashboard() {
     <SidebarProvider>
       <Sidebar className="border-r">
         <SidebarHeader className="border-b px-6 py-4">
-          <div className="flex items-center gap-2">
-            <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary text-primary-foreground">
-              <TrendingUp className="h-4 w-4" />
+          <div className="flex items-center gap-3">
+            <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-primary text-primary-foreground shadow-sm">
+              <TrendingUp className="h-5 w-5" />
             </div>
             <div>
-              <h1 className="text-lg font-semibold">M&A Intelligence</h1>
+              <h1 className="text-lg font-bold">M&A Intelligence</h1>
               <p className="text-xs text-muted-foreground">
                 Deal Flow Dashboard
               </p>
@@ -497,7 +597,7 @@ export default function Dashboard() {
       </Sidebar>
 
       <SidebarInset>
-        <header className="flex h-16 shrink-0 items-center gap-2 border-b px-4">
+        <header className="flex h-16 shrink-0 items-center gap-2 border-b px-6 bg-muted/30">
           <SidebarTrigger className="-ml-1" />
           <Separator orientation="vertical" className="mr-2 h-4" />
           <div className="flex items-center gap-2 flex-1">
@@ -508,18 +608,17 @@ export default function Dashboard() {
               </p>
             </div>
           </div>
-          <div className="relative group ml-16">
-            <Button variant="ghost" size="sm" className="relative">
+          <div className="relative group">
+            <Button variant="ghost" size="icon" className="relative">
               <Bell className="h-4 w-4" />
-              <span className="absolute -top-1 -right-1 h-2 w-2 bg-red-500 rounded-full"></span>
-              <span className="absolute -top-2 -right-2 h-5 w-5 bg-red-500 text-white text-xs rounded-full flex items-center justify-center font-medium">
+              <span className="absolute -top-1 -right-1 h-5 w-5 bg-destructive text-destructive-foreground text-xs rounded-full flex items-center justify-center font-medium shadow-sm">
                 3
               </span>
             </Button>
-            <div className="absolute right-0 top-full mt-2 w-80 bg-popover border border-border rounded-lg shadow-md z-50 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
+            <div className="absolute right-0 top-full mt-2 w-80 bg-popover border-2 rounded-lg shadow-lg z-50 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
               <div className="p-2">
-                <div className="flex items-center justify-between px-2 py-1.5">
-                  <span className="text-sm font-medium">Notifications</span>
+                <div className="flex items-center justify-between px-3 py-2">
+                  <span className="text-sm font-semibold">Notifications</span>
                   <Button
                     variant="ghost"
                     size="sm"
@@ -530,8 +629,8 @@ export default function Dashboard() {
                 </div>
                 <Separator />
                 <div className="py-1">
-                  <div className="flex items-start gap-3 px-2 py-1.5 rounded-sm hover:bg-accent cursor-pointer">
-                    <div className="h-2 w-2 bg-blue-500 rounded-full mt-2"></div>
+                  <div className="flex items-start gap-3 px-3 py-2 rounded-md hover:bg-accent cursor-pointer">
+                    <div className="h-2 w-2 bg-blue-500 rounded-full mt-2 shadow-sm"></div>
                     <div className="flex-1">
                       <p className="text-sm font-medium">New signal detected</p>
                       <p className="text-xs text-muted-foreground">
@@ -542,8 +641,8 @@ export default function Dashboard() {
                       </p>
                     </div>
                   </div>
-                  <div className="flex items-start gap-3 px-2 py-1.5 rounded-sm hover:bg-accent cursor-pointer">
-                    <div className="h-2 w-2 bg-green-500 rounded-full mt-2"></div>
+                  <div className="flex items-start gap-3 px-3 py-2 rounded-md hover:bg-accent cursor-pointer">
+                    <div className="h-2 w-2 bg-green-500 rounded-full mt-2 shadow-sm"></div>
                     <div className="flex-1">
                       <p className="text-sm font-medium">Watchlist alert</p>
                       <p className="text-xs text-muted-foreground">
@@ -554,8 +653,8 @@ export default function Dashboard() {
                       </p>
                     </div>
                   </div>
-                  <div className="flex items-start gap-3 px-2 py-1.5 rounded-sm hover:bg-accent cursor-pointer">
-                    <div className="h-2 w-2 bg-orange-500 rounded-full mt-2"></div>
+                  <div className="flex items-start gap-3 px-3 py-2 rounded-md hover:bg-accent cursor-pointer">
+                    <div className="h-2 w-2 bg-orange-500 rounded-full mt-2 shadow-sm"></div>
                     <div className="flex-1">
                       <p className="text-sm font-medium">
                         Daily briefing ready
@@ -584,10 +683,10 @@ export default function Dashboard() {
           </div>
         </header>
 
-        <div className="flex-1 space-y-12 p-8">
+        <div className="flex-1 space-y-8 p-8 bg-muted/10">
           <SmartSearchBar />
 
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
             <div className="lg:col-span-2">
               <DealSignalMonitor />
             </div>
